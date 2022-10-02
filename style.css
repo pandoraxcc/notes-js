@@ -56,6 +56,15 @@ body {
     padding: 1rem;
 }
 
+.note {
+    background-color: aliceblue;
+    color: black;
+    padding: 3rem 0.4rem 3rem 0.4rem;
+    margin: auto;
+    width:30%;
+    text-align: center;
+}
+
 textarea {
     background-color: rgb(20, 40, 140);
     color: white;

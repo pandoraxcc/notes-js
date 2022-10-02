@@ -9,7 +9,7 @@ $( document ).ready( function() {
                 
                 <textarea name="input-form" rows="4" cols="50">Enter the note</textarea>
                 
-                <div class='control-section'>
+                <div class="control-section">
                     <button class="button-save">Save ✅</button>
                     <button class="button-delete">Delete Note ❌</button>
                 </div>
@@ -75,6 +75,10 @@ $( document ).ready( function() {
 
     $(document).on('click', '.button-delete', function() {
         $(this).closest('.note-area').remove();
+        if (!$('.note-area').length) {
+            $('.button-delete-all').remove();
+            $('.button-add').html('Add note ✏️');
+        }
     });
 
     // * *
@@ -87,7 +91,13 @@ $( document ).ready( function() {
         var time_stamp = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
         // getting the data from the input field
         text_data = $(this).closest('.note-area').find('textarea').val();
-        insert_data = `<p class='time-stamp'>Note taken: ${time_stamp}</p> <p class="note-data">${text_data}</p>${edit_button}`;
+        insert_data = `
+            <div class="note">
+                <p class="time-stamp">Note taken: ${time_stamp}</p> 
+                <p class="note-data">${text_data}</p>
+                ${edit_button}
+            </div>
+            `;
         // appending the note, removing the controls
         $(this).closest('.note-area').append(insert_data);
         $(this).closest('.note-elements').remove();
@@ -96,6 +106,13 @@ $( document ).ready( function() {
     // * *
     // editing the note 
     // * *
+
+    $(document).on('click', '.button-edit', function() {
+        var current_data = $('.note-data').html();
+        $(this).closest('.note-area').append(input_element_edit_note);
+        $('textarea').val(current_data);
+        $(this).closest('.note').remove();
+    });
 
 });
     
