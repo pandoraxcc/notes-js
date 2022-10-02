@@ -51,6 +51,9 @@ body {
     border: none;
 }
 
+.all-notes {
+    margin-top: 2rem;
+}
 .note-area {
     margin: 2rem 2rem 0rem 2rem;
     padding: 1rem;

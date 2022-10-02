@@ -1,6 +1,15 @@
 
 $( document ).ready( function() {
 
+    // if there was a session before, resore it
+    if (localStorage.getItem('saved_data')) {
+
+        var notes = localStorage.getItem('saved_data');
+        $('.parent-container').empty();
+        $('.parent-container').append(notes);
+    }
+    var taken_notes = $('.parent-container').html();
+
     var input_element_new_note = `
     
         <div class="note-area">
@@ -43,7 +52,7 @@ $( document ).ready( function() {
     $('.button-add').click(function() {
         
         // adding input field with unique id
-        $('.parent-container').append(input_element_new_note);
+        $('.all-notes').append(input_element_new_note);
 
         // reverse inner html of the button
         $('.button-add').html('Add another note ✏️')
@@ -79,6 +88,10 @@ $( document ).ready( function() {
             $('.button-delete-all').remove();
             $('.button-add').html('Add note ✏️');
         }
+
+        //snapshotting the notes
+        var taken_notes = $('.parent-container').html();
+        localStorage.setItem('saved_data', taken_notes);
     });
 
     // * *
@@ -88,7 +101,7 @@ $( document ).ready( function() {
     $(document).on('click', '.button-save', function() {
         // getting the time smap
         var d = new Date();
-        var time_stamp = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+        var time_stamp = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() + "@" + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
         // getting the data from the input field
         text_data = $(this).closest('.note-area').find('textarea').val();
         insert_data = `
@@ -101,6 +114,11 @@ $( document ).ready( function() {
         // appending the note, removing the controls
         $(this).closest('.note-area').append(insert_data);
         $(this).closest('.note-elements').remove();
+
+        //snapshotting the notes
+        var taken_notes = $('.parent-container').html();
+        localStorage.setItem('saved_data', taken_notes);
+
     });
 
     // * *
