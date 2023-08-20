@@ -153,16 +153,17 @@ $( document ).ready( function() {
     // * *
 
     $(document).on('click', '.button-edit', function() {
-
+        
         // getting the current note
-        var current_data = $('.note-data').html();
+        var current_note = $(this).closest('.note').find('.note-data').html();
 
         // inserting default edit template
         $(this).closest('.note-area').append(input_element_edit_note);
 
         // setting the value, clearing
-        $('textarea').val(current_data);
+        $('textarea').val(current_note);
         $(this).closest('.note').remove();
+        
     });
 
 });
